@@ -20,7 +20,7 @@ $(document).ready(function()
 		$("#alertError").hide();
 		
 		// Form validation-------------------
-	    var status = validateItemForm();
+	    var status = validateProposalForm();
 		if (status != true)
 		{
 		$("#alertError").text(status);
@@ -29,101 +29,25 @@ $(document).ready(function()
 		}
 		
 		 // If valid------------------------
-		 var type = ($("#hidIDSave").val() == "") ? "POST" : "PUT"; 
-		 $.ajax( 
-		 { 
-		 url : "ProposalAPI", 
-		 type : type, 
-		 data : $("#formItem").serialize(), 
-		 dataType : "text", 
-		 complete : function(response, status) 
-		 { 
-		 onItemSaveComplete(response.responseText, status); 
-		 } 
- 	}); 
+		$("#formproposal").submit();
 });
 	
-	function onItemSaveComplete(response, status) 
-	{
-		if (status == "success") {
-			
-			var resultSet = JSON.parse(response);
-			if (resultSet.status.trim() == "success") {
-				$("#alertSuccess").text("Successfully saved.");
-				$("#alertSuccess").show();
-				$("#divItemsGrid").html(resultSet.data);
-			} 
-			else if (resultSet.status.trim() == "error") {
-				$("#alertError").text(resultSet.data);
-				$("#alertError").show();
-			}
-		} else if (status == "error") {
-			
-			$("#alertError").text("Error while saving.");
-			$("#alertError").show();
-		} else {
-			
-			$("#alertError").text("Unknown error while saving..");
-			$("#alertError").show();
-		}
-
-		$("#hidpIDSave").val("");
-		$("#formItem")[0].reset();
-	}
-
-	$(document).on("click", ".btnRemove", function(event) {
-		$.ajax(
-			{
-				url: "ProposalsAPI",
-				type: "DELETE",
-				data: "pid=" + $(this).data("pid"),
-				dataType: "text",
-				complete: function(response, status) {
-					onItemDeleteComplete(response.responseText, status);
-				}
-			});
-	});
-
-	function onItemDeleteComplete(response, status) 
-	{
-		if (status == "success") {
-			
-			var resultSet = JSON.parse(response);
-			
-			if (resultSet.status.trim() == "success") {
-				$("#alertSuccess").text("Successfully deleted.");
-				$("#alertSuccess").show();
-				$("#divItemsGrid").html(resultSet.data);
-			} 
-			else if (resultSet.status.trim() == "error") {
-				$("#alertError").text(resultSet.data);
-				$("#alertError").show();
-			}
-		} else if (status == "error") {
-			
-			$("#alertError").text("Error while deleting.");
-			$("#alertError").show();
-		} else {
-			
-			$("#alertError").text("Unknown error while deleting..");
-			$("#alertError").show();
-		}
-	}
+	
 		
 // UPDATE==========================================
-	$(document).on("click", ".btnUpdate", function(event)
-	{
-	$("#hidIDSave").val($(this).data("pid"));
-	$("#pname").val($(this).closest("tr").find('td:eq(1)').text());
-	$("#rname").val($(this).closest("tr").find('td:eq(2)').text());
-	$("#catagory").val($(this).closest("tr").find('td:eq(3)').text());
-	$("#duration").val($(this).closest("tr").find('td:eq(4)').text());
-	$("#email").val($(this).closest("tr").find('td:eq(5)').text());
-	$("#phone").val($(this).closest("tr").find('td:eq(6)').text());
-	$("#budget").val($(this).closest("tr").find('td:eq(7)').text());
-	$("#userid").val($(this).closest("tr").find('td:eq(8)').text());
-	$("#summery").val($(this).closest("tr").find('td:eq(9)').text());
-	$("#status").val($(this).closest("tr").find('td:eq(10)').text());
+	$(document).on("click",".btnUpdate",function(event) {
+		$("#hidIdSave").val($(this).closest("tr").find('#hidIdProposalUpdate').val());
+		$("#pname").val($(this).closest("tr").find('td:eq(0)').text());
+		$("#rname").val($(this).closest("tr").find('td:eq(1)').text());
+		$("#catagory").val($(this).closest("tr").find('td:eq(2)').text());
+		$("#duration").val($(this).closest("tr").find('td:eq(3)').text());
+		$("#email").val($(this).closest("tr").find('td:eq(4)').text());
+		$("#phone").val($(this).closest("tr").find('td:eq(5)').text());
+		$("#budget").val($(this).closest("tr").find('td:eq(6)').text());
+		$("#userid").val($(this).closest("tr").find('td:eq(7)').text());
+		$("#summery").val($(this).closest("tr").find('td:eq(8)').text());
+		$("#status").val($(this).closest("tr").find('td:eq(9)').text());
+		
 	});
 	
 
@@ -183,11 +107,11 @@ function validateItemForm()
 	if ($("#summery").val().trim() == "") {
 		return "Insert Progect Summery.";
 	}
-	// Status------------------------
-	if ($("#status").val().trim() == "")
-	{
-	return "Insert Proposal Status.";
+	// Status
+	if ($("#status").val().trim() == "") {
+		return "Insert Progect Status.";
 	}
+	
 	return true;
 }
 

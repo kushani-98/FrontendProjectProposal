@@ -46,7 +46,7 @@ public class ProposalAPI extends HttpServlet {
 		String output = proposal.addProposals(request.getParameter("pname"), request.getParameter("rname"),
 				request.getParameter("catagory"), request.getParameter("duration"),request.getParameter("email"),request.getParameter("phone"),request.getParameter("budget"),request.getParameter("userid"),request.getParameter("summery"),request.getParameter("status"));
 		
-		doGet(request, response);
+		response.getWriter().write(output);
 	}
 
 	/**

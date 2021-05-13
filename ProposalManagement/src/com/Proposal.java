@@ -15,7 +15,9 @@ public class Proposal {
 
 			System.out.print("Successfully connected");
 		} catch (Exception e) {
+			System.out.print("Connection Failed");
 			e.printStackTrace();
+			System.out.print(e);
 		}
 
 		return con;
@@ -27,7 +29,7 @@ public class Proposal {
 		
 		String output = "";
 		
-		Proposal proposal = new Proposal();
+		
 		try
 		{
 			Connection con = connect();
@@ -36,8 +38,7 @@ public class Proposal {
 				return "Error while connecting to the database for reading.";
 			}
 			// Prepare the html table to be displayed
-			output = "<table border=\"1\"><tr><th>ProposalID</th>"
-					+ "<th>ProposalName</th><th>ResearcherName</th> "+" <th>Catagory</th> "+"<th>Duration</th> "+" <th>Email</th> "+" <th>Phone</th> "+" <th>Budget</th> "+" <th>Userid</th> "+" <th>Summery</th>"+"<th>Status</th></tr>";
+			output = "<table border=\"1\"><tr><th>ProposalName</th><th>ResearcherName</th> "+" <th>Catagory</th> "+"<th>Duration</th> "+" <th>Email</th> "+" <th>Phone</th> "+" <th>Budget</th> "+" <th>Userid</th> "+" <th>Summery</th>"+"<th>Status</th>"+"<th>Update</th>"+"<th>Delete</th></tr>";
 
 			String query = "select * from proposals";
 			Statement stmt = con.createStatement();
@@ -54,13 +55,14 @@ public class Proposal {
 				String email = rs.getString("email");
 				String phone = rs.getString("phone");
 				String budget = Double.toString(rs.getDouble("budget"));
-				String userid = Integer.toString(rs.getInt("userid"));
+				String userid = rs.getString("userid");
 				String summery = rs.getString("summery");
 				String status = rs.getString("status");
 				
+				output += "<tr><td><input id='hidIdProposalUpdate' name='hidIdProposalUpdate' type='hidden' value='" + pid + "'>" + pname + "</td>";
 				// Add into the html table
-				output += "<tr><td>" + pid + "</td>";
-				output += "<td>" + pname + "</td>";
+				//output += "<tr><td>" + pid + "</td>";
+				//output += "<td>" + pname + "</td>";
 				output += "<td>" + rname + "</td>";
 				output += "<td>" + catagory + "</td>";
 				output += "<td>" + duration + "</td>";
@@ -92,7 +94,7 @@ public class Proposal {
 	
 	    //Insert Proposal  Details
 	
-		public String addProposals(String pname, String rname, String catagory, String duration ,String email , String phone , String budget , String userid , String summery , String status) {
+		public String addProposals(String pname, String rname, String catagory, String duration ,String email , String phone , String budget , String userid , String summery , String status ) {
 			
 			String output = "";
 
@@ -107,28 +109,27 @@ public class Proposal {
 
 				// insert data
 
-				String query = " insert into proposals (`pid`,`pname`,`rname`,`catagory`,`duration`,`email`,`phone`,`budget`,`userid`,`summery`,`status`)"
-						+ " values (?, ?, ?, ?, ?, ?,?,?,?,?,?)";
+				String query = " insert into proposals (pname,rname,catagory,duration,email,phone,budget,userid,summery,status) values (?, ?, ?, ?,?,?,?,?,?,?)";
 				PreparedStatement preparedStmt = con.prepareStatement(query);
 				
-				preparedStmt.setInt(1, 0);
-				preparedStmt.setString(2, pname);
-				preparedStmt.setString(3, rname);
-				preparedStmt.setString(4, catagory);
-				preparedStmt.setString(5, duration);
-				preparedStmt.setString(6, email);
-				preparedStmt.setString(7, phone);
-				preparedStmt.setString(8, budget);
-				preparedStmt.setString(9, userid);
-				preparedStmt.setString(10, summery);
-				preparedStmt.setString(11, status);
+	
+				preparedStmt.setString(1, pname);
+				preparedStmt.setString(2, rname);
+				preparedStmt.setString(3, catagory);
+				preparedStmt.setString(4, duration);
+				preparedStmt.setString(5, email);
+				preparedStmt.setString(6, phone);
+				preparedStmt.setDouble(7, Double.parseDouble(budget));
+				preparedStmt.setString(8, userid);
+				preparedStmt.setString(9, summery);
+				preparedStmt.setString(10, status);
 
 				// execute the statement
 				preparedStmt.execute();
 				con.close();
-				String newItems = viewProposals();
+				String newProposal = viewProposals();
 				
-				output = "{\"status\":\"success\", \"data\": \"" + newItems + "\"}";
+				output = "{\"status\":\"success\", \"data\": \"" + newProposal + "\"}";
 				
 			} catch (Exception e) {
 
@@ -157,17 +158,17 @@ public class Proposal {
 
 				// binding values
 
-				preparedStmt.setString(2, pname);
-				preparedStmt.setString(3, rname);
-				preparedStmt.setString(4, catagory);
-				preparedStmt.setString(5, duration);
-				preparedStmt.setString(6, email);
-				preparedStmt.setString(7, phone);
-				preparedStmt.setDouble(8, Double.parseDouble(budget));
-				preparedStmt.setInt(9, Integer.parseInt(userid));
-				preparedStmt.setString(10,summery);
-				preparedStmt.setString(11,status);
-				preparedStmt.setInt(12, Integer.parseInt(pid));
+				preparedStmt.setString(1, pname);
+				preparedStmt.setString(2, rname);
+				preparedStmt.setString(3, catagory);
+				preparedStmt.setString(4, duration);
+				preparedStmt.setString(5, email);
+				preparedStmt.setString(6, phone);
+				preparedStmt.setDouble(7, Double.parseDouble(budget));
+				preparedStmt.setString(8,userid);
+				preparedStmt.setString(9,summery);
+				preparedStmt.setString(10,status);
+				preparedStmt.setInt(11, Integer.parseInt(pid));
 				
 				// execute the statement
 				preparedStmt.execute();
