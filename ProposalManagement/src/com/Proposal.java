@@ -71,10 +71,14 @@ public class Proposal {
 				output += "<td>" + status + "</td>";
 				
 				// buttons
-				output += "<td><input name='btnUpdate'  type='button' value='Update' class ='btnUpdate btn btn-secondary' data-pid='" + pid + "'></td>"
+				/*output += "<td><input name='btnUpdate'  type='button' value='Update' class ='btnUpdate btn btn-secondary' data-pid='" + pid + "'></td>"
 						 + "<td><form method='post' action='proposal.jsp'>"
 						 + "<input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-pid='" + pid + "'>"
-						 + "<input name='hidProposalDelete' type='hidden' value='" + pid + "'>" + "</form></td></tr>"; 
+						 + "<input name='hidProposalDelete' type='hidden' value='" + pid + "'>" + "</form></td></tr>"; */
+				
+				
+				output += "<td><input name='btnUpdate' type='button' value='Update' class=' btnUpdate btn btn-secondary' data-pid='" + pid + "'></td>" 
+						+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-pid='" + pid + "'></td></tr>";
 						 } 
 	
 			

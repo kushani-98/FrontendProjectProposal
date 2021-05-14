@@ -35,7 +35,7 @@ CREATE TABLE `proposals` (
   `summery` varchar(45) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `proposals` (
 
 LOCK TABLES `proposals` WRITE;
 /*!40000 ALTER TABLE `proposals` DISABLE KEYS */;
-INSERT INTO `proposals` VALUES (2,'abc','kushani','bgb','vb','vbb','vbcv',100,'gh','ghfgh','ghfg'),(3,'dgbd','dgd','fgdf','fgd','gdf','gdfg',3000,'ghfg','ghfg','hfg'),(4,'aaaa','aaaaa','aaaaa','aaa','aaa','aaaa',1,'aaaaaa','aaaa','aaaa');
+INSERT INTO `proposals` VALUES (6,'Nanotech','Kushani','Technology','6months','kushani12@gmail.com','0987654321',100000,'3','In this project','Pending'),(8,'ABC','Kavindya','Software Development','3months','kavi12@gmail.com','078907654',30000,'3','ewdewd','Approved'),(10,'AppDevelopment','Pitigala','software','3months','pi90%40gmail.com','076456789',75000,'1','gftr','Rejected'),(12,'GBproject','Bhagya','IT','4month','bhag2%40gmail.com','087654321',80000,'5','fdtsr','Approved');
 /*!40000 ALTER TABLE `proposals` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -57,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-14 17:33:49
+-- Dump completed on 2021-05-14 21:03:41

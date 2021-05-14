@@ -6,7 +6,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Project Proposal Management</title>
-<link rel="stylesheet" href="Views/bootstrap.min.css">
+<link rel="stylesheet" href="Views/bootstrap.css">
 <script src="jQuery-3.2.1.min.js"></script>
 <script src="proposal.js"></script>
 
