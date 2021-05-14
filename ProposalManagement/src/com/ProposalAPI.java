@@ -34,8 +34,7 @@ public class ProposalAPI extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
@@ -43,8 +42,16 @@ public class ProposalAPI extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String output = proposal.addProposals(request.getParameter("pname"), request.getParameter("rname"),
-				request.getParameter("catagory"), request.getParameter("duration"),request.getParameter("email"),request.getParameter("phone"),request.getParameter("budget"),request.getParameter("userid"),request.getParameter("summery"),request.getParameter("status"));
+		String output = proposal.addProposals(request.getParameter("pname"),
+				request.getParameter("rname"),
+				request.getParameter("catagory"), 
+				request.getParameter("duration"),
+				request.getParameter("email"),
+				request.getParameter("phone"),
+				request.getParameter("budget"),
+				request.getParameter("userid"),
+				request.getParameter("summery"),
+				request.getParameter("status"));
 		
 		response.getWriter().write(output);
 	}
@@ -55,8 +62,17 @@ public class ProposalAPI extends HttpServlet {
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Map paras = getParasMap(request);
-		String output = proposal.updateProposals(paras.get("hidpIDSave").toString(), paras.get("pname").toString(),
-				paras.get("rname").toString(), paras.get("catagory").toString(), paras.get("duration").toString(), paras.get("email").toString(), paras.get("phone").toString(), paras.get("budget").toString(), paras.get("userid").toString(), paras.get("summery").toString(), paras.get("status").toString());
+		String output = proposal.updateProposals(paras.get("hidIDSave").toString(), 
+				paras.get("pname").toString(),
+				paras.get("rname").toString(), 
+				paras.get("catagory").toString(), 
+				paras.get("duration").toString(), 
+				paras.get("email").toString(), 
+				paras.get("phone").toString(), 
+				paras.get("budget").toString(), 
+				paras.get("userid").toString(), 
+				paras.get("summery").toString(), 
+				paras.get("status").toString());
 		response.getWriter().write(output);
 	}
 
@@ -75,7 +91,8 @@ public class ProposalAPI extends HttpServlet {
 					Map<String, String> map = new HashMap<String, String>();
 					try {
 						Scanner scanner = new Scanner(request.getInputStream(), "UTF-8");
-						String queryString = scanner.hasNext() ? scanner.useDelimiter("\\A").next() : "";
+						String queryString = scanner.hasNext() ? 
+						scanner.useDelimiter("\\A").next() : "";
 						scanner.close();
 						String[] params = queryString.split("&");
 						for (String param : params) {
